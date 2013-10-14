@@ -113,27 +113,10 @@
     return planet1;
 }
 
-- (void)loadView {
-	[super loadView];
-	self.view.backgroundColor = [UIColor blackColor];
 
-
-    NSArray *returnObject = [self createAnimationOfCirlceFirst:80 borderWidth:2 DotWidth:40];
-    
-    CALayer *planet1 = [returnObject lastObject];
-    
-    CALayer *orbit1 = [returnObject objectAtIndex:0];
-	
-    
-    NSArray *returnObject2 = [self createAnimationOfCirlce:80 borderWidth:2 DotWidth:10 dotPosition:planet1];
-    
-    CALayer *planet2 = [returnObject2 lastObject];
-    
-    CALayer *orbit2 = [returnObject2 objectAtIndex:0];
-    
-    
-	[orbit1 addSublayer:orbit2];
-    
+-(void)replicateDot: (CALayer *)planet1
+orbit:(CALayer *)orbit1
+{
 	// Orbit #1
     for (int i=0; i<8; i++) {
         NSArray *returnObject2 = [self createAnimationOfCirlce:80 borderWidth:2 DotWidth:40 dotPosition:planet1];
@@ -157,6 +140,23 @@
         planet1 = planet3;
         orbit1 = orbit3;
     }
+    
+}
+- (void)loadView {
+	[super loadView];
+	self.view.backgroundColor = [UIColor blackColor];
+
+
+    NSArray *returnObject = [self createAnimationOfCirlceFirst:80 borderWidth:2 DotWidth:40];
+    
+    CALayer *planet1 = [returnObject lastObject];
+    
+    CALayer *orbit1 = [returnObject objectAtIndex:0];
+	
+    
+
+    
+    [self replicateDot:planet1 orbit:orbit1];
     
 
 }
